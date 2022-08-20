@@ -3,10 +3,33 @@
     <h2>
       <span translate>Paige Dashboard</span>
     </h2>
-    <div>
-      <label for="name">Input text:</label>
+    <div
+      style="
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 15px;
+      "
+    >
+      <div>
+        <label for="name">Input text:</label>
 
-      <input style="width: 100%" type="text" id="name" name="name" />
+        <input
+          style="width: 100%; height: 100px"
+          type="text"
+          id="initialInputText"
+          name="name"
+          onchange="logInputText();"
+          oninput="logInputText();"
+        />
+      </div>
+      <div>
+        <label for="name">Braille to print</label>
+        <input
+          style="width: 100%; height: 100px"
+          type="text"
+          id="processedText"
+        />
+      </div>
     </div>
   </center>
 </div>
