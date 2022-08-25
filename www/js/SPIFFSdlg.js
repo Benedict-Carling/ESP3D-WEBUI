@@ -325,10 +325,11 @@ function SPIFFS_UploadText(text) {
   var url = "/files";
   var data = new Blob([text], { type: "text/plain" });
   textFile = window.URL.createObjectURL(data);
-  var arg = SPIFFS_currentpath + textFile.name + "S";
+  var fileName = text.replace(/\W/g, "-") + "-" + String(Date.now()) + ".txt";
+  var arg = SPIFFS_currentpath + fileName + "S";
   formData.append("path", SPIFFS_currentpath);
   formData.append(arg, textFile.size);
-  formData.append("myfile[]", data, SPIFFS_currentpath + textFile.name);
+  formData.append("myfile[]", data, SPIFFS_currentpath + fileName);
   SPIFFS_upload_ongoing = true;
   SendFileHttp(
     url,
