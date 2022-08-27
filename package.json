@@ -14,6 +14,7 @@
     "gulp-gzip": "latest",
     "gulp-htmlmin": "latest",
     "gulp-if": "latest",
+    "gulp-inline-fonts": "^1.2.1",
     "gulp-jshint": "latest",
     "gulp-ng-annotate": "latest",
     "gulp-remove-code": "latest",
