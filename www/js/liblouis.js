@@ -1,7 +1,8 @@
 var initialInputText = document.querySelector("#initialInputText");
 var processedText = document.querySelector("#processedText");
 
-function logInputText() {
+function logInputText(inputCharacter) {
+  console.log("inputCharacter", inputCharacter);
   console.log(initialInputText.value);
   processedText.value = initialInputText.value;
   console.log("wrote to processedText");
