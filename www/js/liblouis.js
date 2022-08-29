@@ -5,7 +5,6 @@ function logInputText(inputCharacter) {
   console.log("inputCharacter", inputCharacter);
   console.log(inputCharacter.split("\n"));
   var lines = inputCharacter.split("\n");
-
   var lastLineIsEmpty = lines.at(-1).length === 0;
   var inputHasMoreThanOneLine = lines.length > 1;
   var secondLastLineHas15 = true;
@@ -18,6 +17,9 @@ function logInputText(inputCharacter) {
   if (lastLineIsEmpty && !secondLastLineHas15) {
     initialInputText.value = inputCharacter.trim();
     console.log("trimmed line");
+  }
+  if (lines.at(-1).length > 15) {
+    initialInputText.value = inputCharacter.slice(0, -1);
   }
   processedText.value = initialInputText.value;
   console.log("wrote to processedText");
