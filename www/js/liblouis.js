@@ -3,7 +3,22 @@ var processedText = document.querySelector("#processedText");
 
 function logInputText(inputCharacter) {
   console.log("inputCharacter", inputCharacter);
-  console.log(initialInputText.value);
+  console.log(inputCharacter.split("\n"));
+  var lines = inputCharacter.split("\n");
+
+  var lastLineIsEmpty = lines.at(-1).length === 0;
+  var inputHasMoreThanOneLine = lines.length > 1;
+  var secondLastLineHas15 = true;
+  if (inputHasMoreThanOneLine) secondLastLineHas15 = lines.at(-2).length === 15;
+  console.log({
+    lastLineIsEmpty: lastLineIsEmpty,
+    inputHasMoreThanOneLine: inputHasMoreThanOneLine,
+    secondLastLineHas15: secondLastLineHas15,
+  });
+  if (lastLineIsEmpty && !secondLastLineHas15) {
+    initialInputText.value = inputCharacter.trim();
+    console.log("trimmed line");
+  }
   processedText.value = initialInputText.value;
   console.log("wrote to processedText");
 }
