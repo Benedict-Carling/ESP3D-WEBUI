@@ -23,6 +23,8 @@ function logInputText(inputCharacter) {
   }
   processedText.value = initialInputText.value;
   console.log("wrote to processedText");
+  console.log("About to attempt to run gcode");
+  macro_command("SD", "paige.gcode");
 }
 
 function saveTextInput() {
