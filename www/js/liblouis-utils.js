@@ -3,6 +3,10 @@ var processedText = document.querySelector("#processedText");
 
 function logInputText(inputCharacter) {
   console.log("inputCharacter", inputCharacter);
+  console.info(
+    "Liblouis Version with ccall:",
+    liblouisBuild.ccall("lou_version", "string")
+  );
   console.log(inputCharacter.split("\n"));
   var lines = inputCharacter.split("\n");
   var lastLineIsEmpty = lines.at(-1).length === 0;
