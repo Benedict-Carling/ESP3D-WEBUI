@@ -11,6 +11,7 @@ function logInputText(inputCharacter) {
   );
   console.info("Liblouis Version easy api:", liblouis.version());
   console.info("Liblouis Version easy api:", liblouis.version());
+  console.log({ PAIGE_POTENT_VALUE: PAIGE_POTENT_VALUE });
   console.log(inputCharacter.split("\n"));
   var lines = inputCharacter.split("\n");
   var lastLineIsEmpty = lines.at(-1).length === 0;
