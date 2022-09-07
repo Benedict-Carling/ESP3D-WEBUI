@@ -24,35 +24,33 @@
     self instanceof WorkerGlobalScope;
   var isNode = !isBrowserGuiThread && !isWebWorker;
 
-  var capi;
-
   var TABLE_URL = "";
 
   var FS_ORIGINAL_LOOKUP = null;
 
   var FS_DYNAMIC_LOOKUP = function dynloader(parent, name) {
-    capi.FS.lookup = capi.FS_ORIGINAL_LOOKUP;
+    liblouisBuild.FS.lookup = liblouisBuild.FS_ORIGINAL_LOOKUP;
 
     var res;
 
     if (/(\.cti|\.ctb|\.utb|\.dis|\.uti|\.tbl|\.dic)$/.test(name)) {
       var url = TABLE_URL + name;
-      res = capi.FS.createLazyFile(parent, name, url, true, true);
+      res = liblouisBuild.FS.createLazyFile(parent, name, url, true, true);
     } else {
-      res = capi.FS.lookup.apply(this, [parent, name]);
+      res = liblouisBuild.FS.lookup.apply(this, [parent, name]);
     }
 
-    capi.FS.lookup = FS_DYNAMIC_LOOKUP;
+    liblouisBuild.FS.lookup = FS_DYNAMIC_LOOKUP;
     return res;
   };
 
   liblouis.setLiblouisBuild = function setLiblouisBuild(_capi) {
     if (liblouis._log_callback_fn_pointer) {
-      capi.Runtime.removeFunction(liblouis._log_callback_fn_pointer);
-      capi = _capi;
+      liblouisBuild.Runtime.removeFunction(liblouis._log_callback_fn_pointer);
+      liblouisBuild = _capi;
       liblouis.registerLogCallback(liblouis._log_callback_fn_pointer);
     } else {
-      capi = _capi;
+      liblouisBuild = _capi;
       liblouis.registerLogCallback(null);
     }
 
@@ -60,51 +58,50 @@
       this.enableOnDemandTableLoading("tables/");
     }
 
-    FS_ORIGINAL_LOOKUP = capi.FS.lookup;
+    FS_ORIGINAL_LOOKUP = liblouisBuild.FS.lookup;
   };
 
   liblouis.version = function () {
-    return capi.ccall("lou_version", "string", [], []);
+    return liblouisBuild.ccall("lou_version", "string", [], []);
   };
   liblouis.setLogLevel = function (num) {
-    return capi.ccall("lou_setLogLevel", "void", ["number"], [num]);
+    return liblouisBuild.ccall("lou_setLogLevel", "void", ["number"], [num]);
   };
   liblouis.getTable = function (str) {
-    return capi.ccall("lou_getTable", "number", ["string"], [str]);
+    return liblouisBuild.ccall("lou_getTable", "number", ["string"], [str]);
   };
   liblouis.checkTable = function (str) {
-    return capi.ccall("lou_checkTable", "number", ["string"], [str]);
+    return liblouisBuild.ccall("lou_checkTable", "number", ["string"], [str]);
   };
   liblouis.free = function () {
-    return capi.ccall("lou_free", "void", [], []);
+    return liblouisBuild.ccall("lou_free", "void", [], []);
   };
   liblouis.charSize = function () {
-    return capi.ccall("lou_charSize", "number", [], []);
+    return liblouisBuild.ccall("lou_charSize", "number", [], []);
   };
   liblouis.logFile = function (str) {
-    return capi.ccall("lou_logFile", "void", ["string"], [str]);
+    return liblouisBuild.ccall("lou_logFile", "void", ["string"], [str]);
   };
   liblouis.getFilesystem = function () {
-    return capi.FS;
+    return liblouisBuild.FS;
   };
 
   liblouis.registerLogCallback = function (fn) {
     if (liblouis._log_callback_fn_pointer) {
-      capi.Runtime.removeFunction(liblouis._log_callback_fn_pointer);
+      liblouisBuild.Runtime.removeFunction(liblouis._log_callback_fn_pointer);
     }
 
     if (fn === null) {
       fn = easyApiDefaultLogCallback;
     }
 
-    liblouis._log_callback_fn_pointer = capi.Runtime.addFunction(function (
-      logLvl,
-      msg
-    ) {
-      fn(logLvl, capi.Pointer_stringify(msg));
-    });
+    liblouis._log_callback_fn_pointer = liblouisBuild.Runtime.addFunction(
+      function (logLvl, msg) {
+        fn(logLvl, liblouisBuild.Pointer_stringify(msg));
+      }
+    );
 
-    capi.ccall(
+    liblouisBuild.ccall(
       "lou_registerLogCallback",
       "void",
       ["pointer"],
@@ -117,7 +114,7 @@
   };
 
   liblouis.compileString = function (table, str) {
-    var success = capi.ccall(
+    var success = liblouisBuild.ccall(
       "lou_compileString",
       "number",
       ["string", "string"],
@@ -134,23 +131,23 @@
     var mode = 0;
 
     var bufflen = inbuf.length * 4 + 2;
-    var inbuff_ptr = capi._malloc(bufflen);
-    var outbuff_ptr = capi._malloc(bufflen);
+    var inbuff_ptr = liblouisBuild._malloc(bufflen);
+    var outbuff_ptr = liblouisBuild._malloc(bufflen);
 
     // UCS-2 to UTF-16LE
     // TODO: internally no conversion is done, only copies values
     // to memory, which is okay for BMP
     // TODO: this writes an unnecessary null byte
-    capi.stringToUTF16(inbuf, inbuff_ptr, bufflen);
+    liblouisBuild.stringToUTF16(inbuf, inbuff_ptr, bufflen);
 
     // in emscripten we need a 32bit cell for each pointer
-    var bufflen_ptr = capi._malloc(4);
-    var strlen_ptr = capi._malloc(4);
+    var bufflen_ptr = liblouisBuild._malloc(4);
+    var strlen_ptr = liblouisBuild._malloc(4);
 
-    capi.setValue(bufflen_ptr, bufflen, "i32");
-    capi.setValue(strlen_ptr, bufflen, "i32");
+    liblouisBuild.setValue(bufflen_ptr, bufflen, "i32");
+    liblouisBuild.setValue(strlen_ptr, bufflen, "i32");
 
-    var success = capi.ccall(
+    var success = liblouisBuild.ccall(
       backtranslate ? "lou_backTranslateString" : "lou_translateString",
       "number",
       ["string", "number", "number", "number", "number", "number", "number"],
@@ -175,30 +172,30 @@
     // string.
     //var outstr = UTF16ToString(outbuff_ptr);
     var start_index = outbuff_ptr >> 1;
-    var end_index = start_index + capi.getValue(bufflen_ptr, "i32");
-    var outstr_buff = capi.HEAP16.slice(start_index, end_index);
+    var end_index = start_index + liblouisBuild.getValue(bufflen_ptr, "i32");
+    var outstr_buff = liblouisBuild.HEAP16.slice(start_index, end_index);
 
-    capi._free(outbuff_ptr);
-    capi._free(inbuff_ptr);
-    capi._free(bufflen_ptr);
-    capi._free(strlen_ptr);
+    liblouisBuild._free(outbuff_ptr);
+    liblouisBuild._free(inbuff_ptr);
+    liblouisBuild._free(bufflen_ptr);
+    liblouisBuild._free(strlen_ptr);
 
     return String.fromCharCode.apply(null, outstr_buff);
   };
 
   liblouis.loadTable = function (tablename, url) {
-    capi.FS.createPreloadedFile("/", tablename, url, true, true);
+    liblouisBuild.FS.createPreloadedFile("/", tablename, url, true, true);
   };
 
   liblouis.enableOnDemandTableLoading = function (tableurl) {
     TABLE_URL = tableurl;
     if (!isNode) {
-      capi.FS.lookup = FS_DYNAMIC_LOOKUP;
+      liblouisBuild.FS.lookup = FS_DYNAMIC_LOOKUP;
     } else {
-      capi.FS.mkdir("/tables");
+      liblouisBuild.FS.mkdir("/tables");
       var path = require("path");
-      capi.FS.mount(
-        capi.NODEFS,
+      liblouisBuild.FS.mount(
+        liblouisBuild.NODEFS,
         { root: path.resolve(__dirname, "tables/") },
         tableurl
       );
@@ -206,7 +203,7 @@
   };
 
   liblouis.disableOnDemandTableLoading = function () {
-    capi.FS.lookup = FS_ORIGINAL_LOOKUP;
+    liblouisBuild.FS.lookup = FS_ORIGINAL_LOOKUP;
   };
 
   var _CONSOLE_MAPPING = {

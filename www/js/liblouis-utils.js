@@ -1,12 +1,16 @@
 var initialInputText = document.querySelector("#initialInputText");
 var processedText = document.querySelector("#processedText");
 
+liblouis.enableOnDemandTableLoading();
+
 function logInputText(inputCharacter) {
   console.log("inputCharacter", inputCharacter);
   console.info(
     "Liblouis Version with ccall:",
     liblouisBuild.ccall("lou_version", "string")
   );
+  console.info("Liblouis Version easy api:", liblouis.version());
+  console.info("Liblouis Version easy api:", liblouis.version());
   console.log(inputCharacter.split("\n"));
   var lines = inputCharacter.split("\n");
   var lastLineIsEmpty = lines.at(-1).length === 0;
