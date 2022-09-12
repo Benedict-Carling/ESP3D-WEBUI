@@ -22,6 +22,8 @@ function logInputText(inputCharacter) {
     console.log("trimmed line");
   } else if (lines.at(-1).length > 15) {
     initialInputText.value = inputCharacter.slice(0, -1);
+  } else if (lines.length === 6 && lines.at(-1).length === 1) {
+    initialInputText.value = inputCharacter.slice(0, -1);
   } else {
     processedText.value = initialInputText.value;
     console.log("valid input recieved; executing gcode");
