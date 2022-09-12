@@ -41,6 +41,13 @@ function saveTextInput() {
   console.log("Saved Text");
 }
 
+function clearTextInput() {
+  console.log("Attempting to clear");
+  macro_command("SD", "clear.gcode");
+  console.log("Attempting to home");
+  SendHomeCommand();
+}
+
 function liblouisTranslation() {
   console.info(
     "Liblouis Version with ccall:",
