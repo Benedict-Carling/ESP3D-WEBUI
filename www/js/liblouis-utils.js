@@ -1,10 +1,10 @@
 var initialInputText = document.querySelector("#initialInputText");
 var processedText = document.querySelector("#processedText");
 
-liblouis.enableOnDemandTableLoading();
+// liblouis.enableOnDemandTableLoading();
 
 function logInputText(inputCharacter) {
-  liblouisTranslation();
+  // liblouisTranslation();
   checkPotentiometerValue();
   console.log(inputCharacter.split("\n"));
   var lines = inputCharacter.split("\n");
@@ -48,13 +48,13 @@ function clearTextInput() {
   SendHomeCommand();
 }
 
-function liblouisTranslation() {
-  console.info(
-    "Liblouis Version with ccall:",
-    liblouisBuild.ccall("lou_version", "string")
-  );
-  console.info("Liblouis Version easy api:", liblouis.version());
-}
+// function liblouisTranslation() {
+//   console.info(
+//     "Liblouis Version with ccall:",
+//     liblouisBuild.ccall("lou_version", "string")
+//   );
+//   console.info("Liblouis Version easy api:", liblouis.version());
+// }
 
 function checkPotentiometerValue() {
   console.log({ PAIGE_POTENT_VALUE: PAIGE_POTENT_VALUE });
