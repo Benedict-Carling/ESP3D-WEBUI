@@ -27,11 +27,11 @@ function logInputText(inputCharacter) {
   } else if (lastLineIsEmpty) {
     processedText.value = initialInputText.value;
     console.log("executing new line macro");
-    macro_command("SD", "newline.gcode");
+    // macro_command("SD", "newline.gcode");
   } else {
     processedText.value = initialInputText.value;
     console.log("valid input recieved; executing gcode");
-    macro_command("SD", "paige.gcode");
+    // macro_command("SD", "paige.gcode");
   }
 }
 
@@ -43,9 +43,9 @@ function saveTextInput() {
 
 function clearTextInput() {
   console.log("Attempting to clear");
-  macro_command("SD", "clear.gcode");
+  // macro_command("SD", "clear.gcode");
   console.log("Attempting to home");
-  SendHomeCommand();
+  // SendHomeCommand();
 }
 
 // function liblouisTranslation() {
