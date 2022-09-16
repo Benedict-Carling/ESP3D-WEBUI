@@ -208,8 +208,7 @@ function files_build_file_line(index) {
 function PAIGE_files_load(index) {
   var filePath = files_currentPath + "SD/" + files_file_list[index].name;
   try {
-    var contents = readTextFile(filePath);
-    console.log(contents);
+    readTextFile(filePath);
   } catch (e) {
     console.log(e);
   }
@@ -224,6 +223,13 @@ function readTextFile(file) {
         var allText = rawFile.responseText;
         console.log("this is the content of the file");
         console.log(allText);
+        for (var i = 0; i < allText.length; i++) {
+          console.log("inside loop");
+          console.info(allText[i]);
+          if (allText === "\n") {
+            console.log("NEW LINE");
+          }
+        }
       }
     }
   };
