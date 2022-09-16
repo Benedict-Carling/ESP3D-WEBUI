@@ -1037,6 +1037,84 @@ function process_check_sd_presence(answer) {
   //no check for marlin / repetier as no reliable test IFAIK
 }
 
+function PAIGE_files_start_upload(text) {
+  if (http_communication_locked) {
+    alertdlg(
+      translate_text_item("Busy..."),
+      translate_text_item(
+        "Communications are currently locked, please wait and retry."
+      )
+    );
+    console.log("communication locked");
+    return;
+  }
+  var url = "/upload";
+  var path = files_currentPath;
+  if (
+    direct_sd &&
+    target_firmware == "smoothieware" &&
+    files_currentPath.startsWith(primary_sd)
+  ) {
+    path = files_currentPath.substring(primary_sd.length);
+  }
+  if (
+    !direct_sd ||
+    (target_firmware == "smoothieware" &&
+      files_currentPath.startsWith(secondary_sd))
+  ) {
+    url = "/upload_serial";
+    if (target_firmware == "smoothieware") {
+      if (files_currentPath.startsWith(secondary_sd))
+        path = files_currentPath.substring(secondary_sd.length);
+      else path = files_currentPath.substring(primary_sd.length);
+    }
+  }
+  //console.log("upload from " + path );
+
+  var formData = new FormData();
+  console.log("uploadPath", path);
+  formData.append("path", path);
+
+  var data = new Blob([text], { type: "text/plain" });
+  var file = window.URL.createObjectURL(data);
+  var fileName = text.replace(/\W/g, "-") + "-" + String(Date.now()) + ".txt";
+
+  var arg = path + fileName + "S";
+  //append file size first to check updload is complete
+  formData.append(arg, file.size);
+  formData.append("myfile[]", data, path + fileName);
+
+  files_error_status = "Upload " + fileName;
+  document.getElementById("files_currentUpload_msg").innerHTML = fileName;
+  document.getElementById("files_uploading_msg").style.display = "block";
+  document.getElementById("files_navigation_buttons").style.display = "none";
+  if (
+    direct_sd &&
+    !(
+      target_firmware == "smoothieware" &&
+      files_currentPath.startsWith(secondary_sd)
+    )
+  ) {
+    SendFileHttp(
+      url,
+      formData,
+      FilesUploadProgressDisplay,
+      files_directSD_list_success,
+      files_directSD_list_failed
+    );
+    //console.log("send file");
+  } else {
+    SendFileHttp(
+      url,
+      formData,
+      FilesUploadProgressDisplay,
+      files_proccess_and_update,
+      files_serial_M20_list_failed
+    );
+  }
+  document.getElementById("files_input_file").value = "";
+}
+
 function files_start_upload() {
   if (http_communication_locked) {
     alertdlg(

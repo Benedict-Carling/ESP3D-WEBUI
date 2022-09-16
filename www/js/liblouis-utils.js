@@ -37,7 +37,7 @@ function logInputText(inputCharacter) {
 
 function saveTextInput() {
   console.log("Attempting to save");
-  SPIFFS_UploadText(initialInputText.value);
+  PAIGE_files_start_upload(initialInputText.value);
   console.log("Saved Text");
 }
 
