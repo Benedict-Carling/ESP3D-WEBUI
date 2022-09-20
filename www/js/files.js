@@ -1,3 +1,6 @@
+var initialInputText = document.querySelector("#initialInputText");
+var processedText = document.querySelector("#processedText");
+
 var files_currentPath = "/";
 var files_filter_sd_list = false;
 var files_file_list = [];
@@ -223,13 +226,25 @@ function readTextFile(file) {
         var allText = rawFile.responseText;
         console.log("this is the content of the file");
         console.log(allText);
-        for (var i = 0; i < allText.length; i++) {
-          console.log("inside loop");
-          console.info(allText[i]);
-          if (allText === "\n") {
-            console.log("NEW LINE");
-          }
-        }
+        var splitText = allText.split("");
+        splitText.forEach(function (el, index) {
+          setTimeout(function () {
+            var AsciiBase10 = allText.charCodeAt(index);
+            var fileName = getAsciiFileName(AsciiBase10);
+            var gcodeFileName = fileName + ".gcode";
+            console.log({
+              allText: allText,
+              index: index,
+              AsciiBase10: AsciiBase10,
+              fileName: fileName,
+              gcodeFileName: gcodeFileName,
+            });
+            macro_command("SD", gcodeFileName);
+          }, index * 1000);
+        });
+
+        initialInputText.value = allText;
+        processedText.value = allText;
       }
     }
   };

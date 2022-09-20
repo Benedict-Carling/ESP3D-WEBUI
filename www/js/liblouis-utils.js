@@ -25,7 +25,7 @@ function logInputText(inputCharacter) {
     // Last character was a new line character thus we want to execute the new line macro
     processedText.value = initialInputText.value;
     console.log("Executing the new line macro");
-    macro_command("SD", "newline.gcode");
+    macro_command("SD", "A.gcode");
   } else {
     initialInputText.value = initialInputText.value.toUpperCase();
     var upperInput = inputCharacter.toUpperCase();
