@@ -25,6 +25,7 @@ function logInputText(inputCharacter) {
     // Last character was a new line character thus we want to execute the new line macro
     processedText.value = initialInputText.value;
     console.log("Executing the new line macro");
+    macro_command("SD", "newline.gcode");
   } else {
     initialInputText.value = initialInputText.value.toUpperCase();
     var upperInput = inputCharacter.toUpperCase();
@@ -38,7 +39,10 @@ function logInputText(inputCharacter) {
       );
     } else {
       processedText.value = initialInputText.value.toUpperCase();
-      // macro_command("SD", "paige.gcode");
+      var gcodeFileName = fileName + ".gcode";
+      console.log("attempting to run command");
+      console.log(gcodeFileName);
+      macro_command("SD", gcodeFileName);
     }
   }
 }
@@ -57,9 +61,18 @@ function saveTextInput() {
 
 function clearTextInput() {
   console.log("Attempting to clear");
-  // macro_command("SD", "clear.gcode");
-  console.log("Attempting to home");
-  // SendHomeCommand();
+  macro_command("SD", "clear.gcode");
+  setTimeout(function () {
+    console.log("Attempting to home");
+    SendHomeCommand();
+    setTimeout(function () {
+      macro_command("SD", "initial.gcode");
+      setTimeout(function () {
+        initialInputText.value = "";
+        processedText.value = "";
+      }, 2000);
+    }, 2000);
+  }, 6000);
 }
 
 function checkPotentiometerValue() {
