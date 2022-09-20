@@ -4,35 +4,49 @@ var processedText = document.querySelector("#processedText");
 // liblouis.enableOnDemandTableLoading();
 
 function logInputText(inputCharacter) {
-  // liblouisTranslation();
   checkPotentiometerValue();
-  console.log(inputCharacter.split("\n"));
   var lines = inputCharacter.split("\n");
   var lastLineIsEmpty = lines.at(-1).length === 0;
   var inputHasMoreThanOneLine = lines.length > 1;
   var secondLastLineHas15 = true;
   if (inputHasMoreThanOneLine) secondLastLineHas15 = lines.at(-2).length === 15;
-  console.log({
-    lastLineIsEmpty: lastLineIsEmpty,
-    inputHasMoreThanOneLine: inputHasMoreThanOneLine,
-    secondLastLineHas15: secondLastLineHas15,
-  });
   if (lastLineIsEmpty && !secondLastLineHas15) {
     initialInputText.value = inputCharacter.trim();
-    console.log("trimmed line");
+    console.log("Input disabled as previous line does not have 15 characters");
   } else if (lines.at(-1).length > 15) {
     initialInputText.value = inputCharacter.slice(0, -1);
+    console.log("Input disabled as current line already has 15 characters");
   } else if (lines.length === 6 && lines.at(-1).length === 1) {
     initialInputText.value = inputCharacter.slice(0, -1);
+    console.log(
+      "Input disabled as line already has 6 lines and a new line character"
+    );
   } else if (lastLineIsEmpty) {
+    // Last character was a new line character thus we want to execute the new line macro
     processedText.value = initialInputText.value;
-    console.log("executing new line macro");
-    // macro_command("SD", "newline.gcode");
+    console.log("Executing the new line macro");
   } else {
-    processedText.value = initialInputText.value;
-    console.log("valid input recieved; executing gcode");
-    // macro_command("SD", "paige.gcode");
+    initialInputText.value = initialInputText.value.toUpperCase();
+    var upperInput = inputCharacter.toUpperCase();
+    var index = upperInput.length - 1;
+    var AsciiBase10 = upperInput.charCodeAt(index);
+    var fileName = getAsciiFileName(AsciiBase10);
+    if (!["2", "3", "4", "5"].includes(fileName[0])) {
+      initialInputText.value = inputCharacter.slice(0, -1);
+      console.log(
+        "Input disabled as input character outside of know ASCII braille range"
+      );
+    } else {
+      processedText.value = initialInputText.value.toUpperCase();
+      // macro_command("SD", "paige.gcode");
+    }
   }
+}
+
+function getAsciiFileName(AsciiBase10) {
+  var AsciiBase16 = AsciiBase10.toString(16);
+  var AsciiBase16FileName = AsciiBase16.toUpperCase();
+  return AsciiBase16FileName;
 }
 
 function saveTextInput() {
@@ -48,14 +62,6 @@ function clearTextInput() {
   // SendHomeCommand();
 }
 
-// function liblouisTranslation() {
-//   console.info(
-//     "Liblouis Version with ccall:",
-//     liblouisBuild.ccall("lou_version", "string")
-//   );
-//   console.info("Liblouis Version easy api:", liblouis.version());
-// }
-
 function checkPotentiometerValue() {
-  console.log({ PAIGE_POTENT_VALUE: PAIGE_POTENT_VALUE });
+  // console.log({ PAIGE_POTENT_VALUE: PAIGE_POTENT_VALUE });
 }
