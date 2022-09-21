@@ -3,7 +3,10 @@ var processedText = document.querySelector("#processedText");
 
 // liblouis.enableOnDemandTableLoading();
 
+var PAIGE_CHARACTER_WAIT_TIME_MS = 500;
+
 function logInputText(inputCharacter) {
+  initialInputText.disabled = true;
   checkPotentiometerValue();
   var lines = inputCharacter.split("\n");
   var lastLineIsEmpty = lines.at(-1).length === 0;
@@ -13,6 +16,30 @@ function logInputText(inputCharacter) {
   if (lastLineIsEmpty && !secondLastLineHas15) {
     initialInputText.value = inputCharacter.trim();
     console.log("Input disabled as previous line does not have 15 characters");
+  } else if (inputCharacter.length === 1) {
+    SendHomeCommand();
+    setTimeout(function () {
+      macro_command("SD", "initial.gcode");
+      setTimeout(function () {
+        initialInputText.value = initialInputText.value.toUpperCase();
+        var upperInput = inputCharacter.toUpperCase();
+        var index = upperInput.length - 1;
+        var AsciiBase10 = upperInput.charCodeAt(index);
+        var fileName = getAsciiFileName(AsciiBase10);
+        if (!["2", "3", "4", "5"].includes(fileName[0])) {
+          initialInputText.value = inputCharacter.slice(0, -1);
+          console.log(
+            "Input disabled as input character outside of know ASCII braille range"
+          );
+        } else {
+          processedText.value = initialInputText.value.toUpperCase();
+          var gcodeFileName = fileName + ".gcode";
+          console.log("attempting to run command");
+          console.log(gcodeFileName);
+          macro_command("SD", gcodeFileName);
+        }
+      }, 1000);
+    }, 2000);
   } else if (lines.at(-1).length > 15) {
     initialInputText.value = inputCharacter.slice(0, -1);
     console.log("Input disabled as current line already has 15 characters");
@@ -44,6 +71,15 @@ function logInputText(inputCharacter) {
       console.log(gcodeFileName);
       macro_command("SD", gcodeFileName);
     }
+  }
+  if (inputCharacter.length === 1) {
+    setTimeout(function () {
+      initialInputText.disabled = false;
+    }, 3000 + PAIGE_CHARACTER_WAIT_TIME_MS);
+  } else {
+    setTimeout(function () {
+      initialInputText.disabled = false;
+    }, PAIGE_CHARACTER_WAIT_TIME_MS);
   }
 }
 
