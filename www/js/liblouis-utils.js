@@ -3,12 +3,13 @@ var processedText = document.querySelector("#processedText");
 
 // liblouis.enableOnDemandTableLoading();
 
-var PAIGE_CHARACTER_WAIT_TIME_MS = 500;
+var PAIGE_CHARACTER_WAIT_TIME_MS = 100;
 
 function logInputText(inputCharacter) {
   initialInputText.disabled = true;
-  checkPotentiometerValue();
   var lines = inputCharacter.split("\n");
+  var validBarPosition = checkPotentiometerValue(lines.length);
+  console.log({ validBarPosition: validBarPosition });
   var lastLineIsEmpty = lines.at(-1).length === 0;
   var inputHasMoreThanOneLine = lines.length > 1;
   var secondLastLineHas15 = true;
@@ -31,6 +32,9 @@ function logInputText(inputCharacter) {
           console.log(
             "Input disabled as input character outside of know ASCII braille range"
           );
+        } else if (!validBarPosition) {
+          initialInputText.value = inputCharacter.slice(0, -1);
+          console.log("Invalid bar position", PAIGE_POTENT_VALUE);
         } else {
           processedText.value = initialInputText.value.toUpperCase();
           var gcodeFileName = fileName + ".gcode";
@@ -64,6 +68,9 @@ function logInputText(inputCharacter) {
       console.log(
         "Input disabled as input character outside of know ASCII braille range"
       );
+    } else if (!validBarPosition) {
+      initialInputText.value = inputCharacter.slice(0, -1);
+      console.log("Invalid bar position", PAIGE_POTENT_VALUE);
     } else {
       processedText.value = initialInputText.value.toUpperCase();
       var gcodeFileName = fileName + ".gcode";
@@ -75,10 +82,12 @@ function logInputText(inputCharacter) {
   if (inputCharacter.length === 1) {
     setTimeout(function () {
       initialInputText.disabled = false;
+      initialInputText.focus();
     }, 3000 + PAIGE_CHARACTER_WAIT_TIME_MS);
   } else {
     setTimeout(function () {
       initialInputText.disabled = false;
+      initialInputText.focus();
     }, PAIGE_CHARACTER_WAIT_TIME_MS);
   }
 }
@@ -111,6 +120,22 @@ function clearTextInput() {
   }, 6000);
 }
 
-function checkPotentiometerValue() {
-  // console.log({ PAIGE_POTENT_VALUE: PAIGE_POTENT_VALUE });
+function checkPotentiometerValue(line) {
+  console.log({ PAIGE_POTENT_VALUE: PAIGE_POTENT_VALUE });
+  if (line === 1) {
+    if ((PAIGE_POTENT_VALUE >= 6) & (PAIGE_POTENT_VALUE <= 12)) return true;
+  }
+  if (line === 2) {
+    if ((PAIGE_POTENT_VALUE >= 19) & (PAIGE_POTENT_VALUE <= 25)) return true;
+  }
+  if (line === 3) {
+    if ((PAIGE_POTENT_VALUE >= 32) & (PAIGE_POTENT_VALUE <= 39)) return true;
+  }
+  if (line === 4) {
+    if ((PAIGE_POTENT_VALUE >= 46) & (PAIGE_POTENT_VALUE <= 52)) return true;
+  }
+  if (line === 5) {
+    if ((PAIGE_POTENT_VALUE >= 59) & (PAIGE_POTENT_VALUE <= 65)) return true;
+  }
+  return false;
 }
