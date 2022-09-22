@@ -622,7 +622,7 @@ function initUI() {
   if (typeof document.getElementById("FW_VERSION") != "undefined")
     document.getElementById("FW_VERSION").innerHTML = fw_version;
   // Get the element with id="defaultOpen" and click on it
-  document.getElementById("maintablink").click();
+  document.getElementById("paigetab").click();
   if (
     target_firmware == "grbl-embedded" ||
     target_firmware == "grbl-embedded"
