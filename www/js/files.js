@@ -1092,7 +1092,7 @@ function PAIGE_files_start_upload(text) {
 
   var data = new Blob([text], { type: "text/plain" });
   var file = window.URL.createObjectURL(data);
-  var fileName = text.replace(/\W/g, "-") + "-" + String(Date.now()) + ".txt";
+  var fileName = text.replace(/\W/g, "-") + ".txt";
 
   var arg = path + fileName + "S";
   //append file size first to check updload is complete
