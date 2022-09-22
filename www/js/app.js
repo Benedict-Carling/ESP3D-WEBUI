@@ -35,6 +35,8 @@ var esp_error_message = "";
 var esp_error_code = 0;
 var PAIGE_POTENT_VALUE = 0;
 
+var paigeClearButton = document.querySelector("#PAIGEClearButton");
+
 function beep(duration, frequency) {
   var audioCtx;
   if (typeof window.AudioContext !== "undefined") {
@@ -216,6 +218,17 @@ function startSocket() {
         if (tval[0] == "PAIGE_POTENT_VALUE") {
           var returned_value = tval[1];
           PAIGE_POTENT_VALUE = returned_value;
+          if (PAIGE_POTENT_VALUE >= 90) {
+            paigeClearButton.disabled = false;
+            paigeClearButton.pointerEvents = "auto";
+            paigeClearButton.title =
+              "Click to clear the display on the the device and the input box";
+          } else {
+            paigeClearButton.disabled = true;
+            paigeClearButton.pointerEvents = "none";
+            paigeClearButton.title =
+              "Please move the bar to the bottom of the display to be able to clear";
+          }
         }
       }
     }
