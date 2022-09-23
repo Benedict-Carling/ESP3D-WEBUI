@@ -681,6 +681,7 @@ function initUI_4() {
 }
 
 function show_main_UI() {
+  SendHomeCommand();
   document.getElementById("main_ui").style.display = "block";
 }
 
