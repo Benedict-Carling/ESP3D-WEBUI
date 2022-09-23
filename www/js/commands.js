@@ -149,6 +149,22 @@ function SendHomeCommand() {
   SendGetHttp(url + cmd, SendCustomCommandSuccess, SendCustomCommandFailed);
 }
 
+function SendDisableCommand() {
+  var cmd = "$MD";
+  var url = "/command?commandText=";
+  cmd = cmd.trim();
+  if (cmd.trim().length == 0) return;
+  CustomCommand_history.push(cmd);
+  CustomCommand_history.slice(-40);
+  CustomCommand_history_index = CustomCommand_history.length;
+  document.getElementById("custom_cmd_txt").value = "";
+  Monitor_output_Update(cmd + "\n");
+  cmd = encodeURI(cmd);
+  //because # is not encoded
+  cmd = cmd.replace("#", "%23");
+  SendGetHttp(url + cmd, SendCustomCommandSuccess, SendCustomCommandFailed);
+}
+
 function CustomCommand_OnKeyUp(event) {
   if (event.keyCode == 13) {
     SendCustomCommand();

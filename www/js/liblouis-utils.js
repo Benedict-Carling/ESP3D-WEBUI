@@ -109,9 +109,8 @@ function clearTextInput() {
   macro_command("ESP", "clear.gcode");
   setTimeout(function () {
     console.log("Attempting to home");
-    SendHomeCommand();
+    SendDisableCommand();
     setTimeout(function () {
-      macro_command("ESP", "initial.gcode");
       setTimeout(function () {
         initialInputText.value = "";
         processedText.value = "";
