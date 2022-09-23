@@ -20,7 +20,7 @@ function logInputText(inputCharacter) {
   } else if (inputCharacter.length === 1) {
     SendHomeCommand();
     setTimeout(function () {
-      macro_command("SD", "initial.gcode");
+      macro_command("ESP", "initial.gcode");
       setTimeout(function () {
         initialInputText.value = initialInputText.value.toUpperCase();
         var upperInput = inputCharacter.toUpperCase();
@@ -40,7 +40,7 @@ function logInputText(inputCharacter) {
           var gcodeFileName = fileName + ".gcode";
           console.log("attempting to run command");
           console.log(gcodeFileName);
-          macro_command("SD", gcodeFileName);
+          macro_command("ESP", gcodeFileName);
         }
       }, 1000);
     }, 2000);
@@ -56,7 +56,7 @@ function logInputText(inputCharacter) {
     // Last character was a new line character thus we want to execute the new line macro
     processedText.value = initialInputText.value;
     console.log("Executing the new line macro");
-    macro_command("SD", "A.gcode");
+    macro_command("ESP", "A.gcode");
   } else {
     initialInputText.value = initialInputText.value.toUpperCase();
     var upperInput = inputCharacter.toUpperCase();
@@ -76,7 +76,7 @@ function logInputText(inputCharacter) {
       var gcodeFileName = fileName + ".gcode";
       console.log("attempting to run command");
       console.log(gcodeFileName);
-      macro_command("SD", gcodeFileName);
+      macro_command("ESP", gcodeFileName);
     }
   }
   if (inputCharacter.length === 1) {
@@ -106,12 +106,12 @@ function saveTextInput() {
 
 function clearTextInput() {
   console.log("Attempting to clear");
-  macro_command("SD", "clear.gcode");
+  macro_command("ESP", "clear.gcode");
   setTimeout(function () {
     console.log("Attempting to home");
     SendHomeCommand();
     setTimeout(function () {
-      macro_command("SD", "initial.gcode");
+      macro_command("ESP", "initial.gcode");
       setTimeout(function () {
         initialInputText.value = "";
         processedText.value = "";

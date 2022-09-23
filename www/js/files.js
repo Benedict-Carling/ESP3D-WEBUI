@@ -239,7 +239,7 @@ function readTextFile(file) {
               fileName: fileName,
               gcodeFileName: gcodeFileName,
             });
-            macro_command("SD", gcodeFileName);
+            macro_command("ESP", gcodeFileName);
           }, index * 1000);
         });
 
