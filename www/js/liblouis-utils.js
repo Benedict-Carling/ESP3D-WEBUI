@@ -6,10 +6,8 @@ var processedText = document.querySelector("#processedText");
 var PAIGE_CHARACTER_WAIT_TIME_MS = 100;
 
 function logInputText(inputCharacter) {
-  initialInputText.disabled = true;
   var lines = inputCharacter.split("\n");
   var validBarPosition = checkPotentiometerValue(lines.length);
-  console.log({ validBarPosition: validBarPosition });
   var lastLineIsEmpty = lines.at(-1).length === 0;
   var inputHasMoreThanOneLine = lines.length > 1;
   var secondLastLineHas15 = true;
@@ -19,31 +17,27 @@ function logInputText(inputCharacter) {
     console.log("Input disabled as previous line does not have 15 characters");
   } else if (inputCharacter.length === 1) {
     SendHomeCommand();
-    setTimeout(function () {
-      macro_command("ESP", "initial.gcode");
-      setTimeout(function () {
-        initialInputText.value = initialInputText.value.toUpperCase();
-        var upperInput = inputCharacter.toUpperCase();
-        var index = upperInput.length - 1;
-        var AsciiBase10 = upperInput.charCodeAt(index);
-        var fileName = getAsciiFileName(AsciiBase10);
-        if (!["2", "3", "4", "5"].includes(fileName[0])) {
-          initialInputText.value = inputCharacter.slice(0, -1);
-          console.log(
-            "Input disabled as input character outside of know ASCII braille range"
-          );
-        } else if (!validBarPosition) {
-          initialInputText.value = inputCharacter.slice(0, -1);
-          console.log("Invalid bar position", PAIGE_POTENT_VALUE);
-        } else {
-          processedText.value = initialInputText.value.toUpperCase();
-          var gcodeFileName = fileName + ".gcode";
-          console.log("attempting to run command");
-          console.log(gcodeFileName);
-          macro_command("ESP", gcodeFileName);
-        }
-      }, 1000);
-    }, 2000);
+    PAIGESimpleReadSPIFFFile("initial.gcode");
+    initialInputText.value = initialInputText.value.toUpperCase();
+    var upperInput = inputCharacter.toUpperCase();
+    var index = upperInput.length - 1;
+    var AsciiBase10 = upperInput.charCodeAt(index);
+    var fileName = getAsciiFileName(AsciiBase10);
+    if (!["2", "3", "4", "5"].includes(fileName[0])) {
+      initialInputText.value = inputCharacter.slice(0, -1);
+      console.log(
+        "Input disabled as input character outside of know ASCII braille range"
+      );
+    } else if (!validBarPosition) {
+      initialInputText.value = inputCharacter.slice(0, -1);
+      console.log("Invalid bar position", PAIGE_POTENT_VALUE);
+    } else {
+      processedText.value = initialInputText.value.toUpperCase();
+      var gcodeFileName = fileName + ".gcode";
+      console.log("attempting to run command");
+      console.log(gcodeFileName);
+      PAIGESimpleReadSPIFFFile(gcodeFileName);
+    }
   } else if (lines.at(-1).length > 15) {
     initialInputText.value = inputCharacter.slice(0, -1);
     console.log("Input disabled as current line already has 15 characters");
@@ -56,7 +50,7 @@ function logInputText(inputCharacter) {
     // Last character was a new line character thus we want to execute the new line macro
     processedText.value = initialInputText.value;
     console.log("Executing the new line macro");
-    macro_command("ESP", "A.gcode");
+    PAIGESimpleReadSPIFFFile("A.gcode");
   } else {
     initialInputText.value = initialInputText.value.toUpperCase();
     var upperInput = inputCharacter.toUpperCase();
@@ -76,19 +70,8 @@ function logInputText(inputCharacter) {
       var gcodeFileName = fileName + ".gcode";
       console.log("attempting to run command");
       console.log(gcodeFileName);
-      macro_command("ESP", gcodeFileName);
+      PAIGESimpleReadSPIFFFile(gcodeFileName);
     }
-  }
-  if (inputCharacter.length === 1) {
-    setTimeout(function () {
-      initialInputText.disabled = false;
-      initialInputText.focus();
-    }, 3000 + PAIGE_CHARACTER_WAIT_TIME_MS);
-  } else {
-    setTimeout(function () {
-      initialInputText.disabled = false;
-      initialInputText.focus();
-    }, PAIGE_CHARACTER_WAIT_TIME_MS);
   }
 }
 
