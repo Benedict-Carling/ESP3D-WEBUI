@@ -225,6 +225,8 @@ function SPIFFSdispatchfilestatus(jsonresponse) {
 
 function PAIGE_SPIFFSReadFile(filename) {
   console.log(filename);
+  var contents = PAIGESimpleReadSPIFFFile(filename);
+  console.log({ contents: contents });
 }
 
 function refreshSPIFFS() {

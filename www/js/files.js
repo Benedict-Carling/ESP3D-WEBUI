@@ -251,6 +251,44 @@ function readTextFile(file) {
   rawFile.send(null);
 }
 
+function PAIGESimpleReadSPIFFFile(file) {
+  var rawFile = new XMLHttpRequest();
+  rawFile.open("GET", file, false);
+  rawFile.onreadystatechange = function () {
+    if (rawFile.readyState === 4) {
+      if (rawFile.status === 200 || rawFile.status == 0) {
+        var allText = rawFile.responseText;
+        console.log("this is the content of the file");
+        console.log(allText);
+        var lines = allText.split("\n");
+        lines.forEach(function (el, index) {
+          PAIGE_SendGrblCommand(el);
+          console.log("Sending command", el);
+        });
+      }
+    }
+  };
+  rawFile.send(null);
+}
+
+// Feed hold is "!"
+// Cycle start is ~
+
+function PAIGE_SendGrblCommand(cmd) {
+  var url = "/command?commandText=";
+  cmd = cmd.trim();
+  if (cmd.trim().length == 0) return;
+  CustomCommand_history.push(cmd);
+  CustomCommand_history.slice(-40);
+  CustomCommand_history_index = CustomCommand_history.length;
+  document.getElementById("custom_cmd_txt").value = "";
+  Monitor_output_Update(cmd + "\n");
+  cmd = encodeURI(cmd);
+  //because # is not encoded
+  cmd = cmd.replace("#", "%23");
+  SendGetHttp(url + cmd, SendCustomCommandSuccess, SendCustomCommandFailed);
+}
+
 function files_print(index) {
   files_print_filename(files_currentPath + files_file_list[index].name);
 }
