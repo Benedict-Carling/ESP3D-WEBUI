@@ -187,7 +187,12 @@ function SPIFFSdispatchfilestatus(jsonresponse) {
         jsonresponse.files[i].name +
         "')\">";
       content += get_icon_svg("trash");
-      content += "</button></td></tr>";
+      content += "</button></td>";
+      content +=
+        "<td style='vertical-align:middle'><button onclick=\"PAIGE_SPIFFSReadFile('" +
+        jsonresponse.files[i].name +
+        "')\">read</button></td>";
+      content += "</tr>";
     }
   }
 
@@ -216,6 +221,10 @@ function SPIFFSdispatchfilestatus(jsonresponse) {
 
   document.getElementById("SPIFFS_file_list").innerHTML = content;
   document.getElementById("SPIFFS_path").innerHTML = SPIFFSnavbar();
+}
+
+function PAIGE_SPIFFSReadFile(filename) {
+  console.log(filename);
 }
 
 function refreshSPIFFS() {
