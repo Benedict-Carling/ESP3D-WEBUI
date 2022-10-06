@@ -3,7 +3,7 @@ var http_cmd_list = [];
 var processing_cmd = false;
 var xmlhttpupload;
 
-var max_cmd = 20;
+var max_cmd = 200;
 
 function clear_cmd_list() {
     http_cmd_list = [];
