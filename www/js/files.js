@@ -252,23 +252,55 @@ function readTextFile(file) {
 }
 
 function PAIGESimpleReadSPIFFFile(file) {
-  var rawFile = new XMLHttpRequest();
-  rawFile.open("GET", file, false);
-  rawFile.onreadystatechange = function () {
-    if (rawFile.readyState === 4) {
-      if (rawFile.status === 200 || rawFile.status == 0) {
-        var allText = rawFile.responseText;
-        console.log("this is the content of the file");
-        console.log(allText);
-        var lines = allText.split("\n");
-        lines.forEach(function (el, index) {
-          PAIGE_SendGrblCommand(el);
-          console.log("Sending command", el);
-        });
-      }
-    }
-  };
-  rawFile.send(null);
+  if (file==="41.gcode") {
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X3 Y-1.5");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-1.5");
+  }
+  if (file==="42.gcode") {
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5");
+    PAIGE_SendGrblCommand("G0 Y3");
+    PAIGE_SendGrblCommand("G0 X3 Y-1.5");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-1.5");
+  }
+  if (file==="43.gcode") {
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+  }
+  if (file==="44.gcode") {
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5");
+  }
+  if (file==="45.gcode") {
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X3 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5");
+  }
+  if (file==="A.gcode") {
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 Y-6.5");
+    PAIGE_SendGrblCommand("G0 X-120");
+    PAIGE_SendGrblCommand("G0 Y-6.5");
+  }
+  if (file==="clear.gcode") {
+    PAIGE_SendGrblCommand("G90");
+    PAIGE_SendGrblCommand("G0 Y-150");
+    PAIGE_SendGrblCommand("G1 X150 F3000");
+    PAIGE_SendGrblCommand("G0 X0");
+    PAIGE_SendGrblCommand("G0 Y0");
+  }
+  if (file==="initial.gcode") {
+    PAIGE_SendGrblCommand("G90");
+    PAIGE_SendGrblCommand("G0 X24.3 Y-4.5");
+  }
 }
 
 // Feed hold is "!"
