@@ -332,7 +332,7 @@ function readTextFile(file) {
             if (line5.length === 15) {
               PAIGESimpleReadSPIFFFile("A.gcode")
             }
-          } else {
+          } else if (needsToPrintLine1 === 0 && needsToPrintLine2 === 0 && needsToPrintLine3 === 0 && needsToPrintLine4 === 0 && needsToPrintLine5 === 0) {
             clearInterval(myInterval);
             console.log("Printing has finished")
             initialInputText.value = allText;
