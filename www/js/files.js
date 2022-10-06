@@ -261,7 +261,7 @@ function readTextFile(file) {
           needsToPrintLine5 = 1;
         }
         // Check the position every 500 milliseconds
-        setTimeout(function () {
+        var myInterval = setInterval(function () {
           if (needsToPrintLine1 === 1 && checkPotentiometerValue(1)) {
             console.log("Printing the Line 1")
             var line1 = lines[0]
@@ -281,7 +281,7 @@ function readTextFile(file) {
             var line2 = lines[1]
             var line2Split = line2.split("");
             line2Split.forEach(function (el, index) {
-              var AsciiBase10 = lines[0].charCodeAt(index);
+              var AsciiBase10 = lines[1].charCodeAt(index);
               var fileName = getAsciiFileName(AsciiBase10);
               var gcodeFileName = fileName + ".gcode";
               PAIGESimpleReadSPIFFFile(gcodeFileName)
@@ -295,7 +295,7 @@ function readTextFile(file) {
             var line3 = lines[2]
             var line3Split = line3.split("");
             line3Split.forEach(function (el, index) {
-              var AsciiBase10 = lines[0].charCodeAt(index);
+              var AsciiBase10 = lines[2].charCodeAt(index);
               var fileName = getAsciiFileName(AsciiBase10);
               var gcodeFileName = fileName + ".gcode";
               PAIGESimpleReadSPIFFFile(gcodeFileName)
@@ -309,7 +309,7 @@ function readTextFile(file) {
             var line4 = lines[3]
             var line4Split = line4.split("");
             line4Split.forEach(function (el, index) {
-              var AsciiBase10 = lines[0].charCodeAt(index);
+              var AsciiBase10 = lines[3].charCodeAt(index);
               var fileName = getAsciiFileName(AsciiBase10);
               var gcodeFileName = fileName + ".gcode";
               PAIGESimpleReadSPIFFFile(gcodeFileName)
@@ -323,7 +323,7 @@ function readTextFile(file) {
             var line5 = lines[4]
             var line5Split = line5.split("");
             line5Split.forEach(function (el, index) {
-              var AsciiBase10 = lines[0].charCodeAt(index);
+              var AsciiBase10 = lines[4].charCodeAt(index);
               var fileName = getAsciiFileName(AsciiBase10);
               var gcodeFileName = fileName + ".gcode";
               PAIGESimpleReadSPIFFFile(gcodeFileName)
@@ -333,16 +333,12 @@ function readTextFile(file) {
               PAIGESimpleReadSPIFFFile("A.gcode")
             }
           } else {
+            clearInterval(myInterval);
             console.log("Printing has finished")
+            initialInputText.value = allText;
+            processedText.value = allText;
           }
         }, 500);
-
-
-
-        // splitText.forEach(function (el, index) {
-        // });
-        initialInputText.value = allText;
-        processedText.value = allText;
       }
     }
   };
