@@ -105,19 +105,19 @@ function clearTextInput() {
 function checkPotentiometerValue(line) {
   console.log({ PAIGE_POTENT_VALUE: PAIGE_POTENT_VALUE });
   if (line === 1) {
-    if ((PAIGE_POTENT_VALUE >= 6) & (PAIGE_POTENT_VALUE <= 12)) return true;
+    if ((PAIGE_POTENT_VALUE >= 5) & (PAIGE_POTENT_VALUE <= 11)) return true;
   }
   if (line === 2) {
-    if ((PAIGE_POTENT_VALUE >= 19) & (PAIGE_POTENT_VALUE <= 25)) return true;
+    if ((PAIGE_POTENT_VALUE >= 17) & (PAIGE_POTENT_VALUE <= 23)) return true;
   }
   if (line === 3) {
-    if ((PAIGE_POTENT_VALUE >= 32) & (PAIGE_POTENT_VALUE <= 39)) return true;
+    if ((PAIGE_POTENT_VALUE >= 28) & (PAIGE_POTENT_VALUE <= 35)) return true;
   }
   if (line === 4) {
-    if ((PAIGE_POTENT_VALUE >= 46) & (PAIGE_POTENT_VALUE <= 52)) return true;
+    if ((PAIGE_POTENT_VALUE >= 42) & (PAIGE_POTENT_VALUE <= 47)) return true;
   }
   if (line === 5) {
-    if ((PAIGE_POTENT_VALUE >= 59) & (PAIGE_POTENT_VALUE <= 65)) return true;
+    if ((PAIGE_POTENT_VALUE >= 53) & (PAIGE_POTENT_VALUE <= 59)) return true;
   }
   return false;
 }

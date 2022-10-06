@@ -218,7 +218,7 @@ function startSocket() {
         if (tval[0] == "PAIGE_POTENT_VALUE") {
           var returned_value = tval[1];
           PAIGE_POTENT_VALUE = returned_value;
-          if (PAIGE_POTENT_VALUE >= 90) {
+          if (PAIGE_POTENT_VALUE >= 75) {
             paigeClearButton.disabled = false;
             paigeClearButton.pointerEvents = "auto";
             paigeClearButton.title =
