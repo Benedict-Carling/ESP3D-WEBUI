@@ -218,6 +218,13 @@ function PAIGE_files_load(index) {
 }
 
 function readTextFile(file) {
+  var needsToPrintLine1 = 0;
+  var needsToPrintLine2 = 0;
+  var needsToPrintLine3 = 0;
+  var needsToPrintLine4 = 0;
+  var needsToPrintLine5 = 0;
+
+
   var rawFile = new XMLHttpRequest();
   rawFile.open("GET", file, false);
   rawFile.onreadystatechange = function () {
@@ -226,23 +233,114 @@ function readTextFile(file) {
         var allText = rawFile.responseText;
         console.log("this is the content of the file");
         console.log(allText);
-        var splitText = allText.split("");
-        splitText.forEach(function (el, index) {
-          setTimeout(function () {
-            var AsciiBase10 = allText.charCodeAt(index);
-            var fileName = getAsciiFileName(AsciiBase10);
-            var gcodeFileName = fileName + ".gcode";
-            console.log({
-              allText: allText,
-              index: index,
-              AsciiBase10: AsciiBase10,
-              fileName: fileName,
-              gcodeFileName: gcodeFileName,
-            });
-            macro_command("ESP", gcodeFileName);
-          }, index * 1000);
-        });
+        var lines = allText.split("\n");
+        // Populate which lines need to run
+        if (lines.length === 1) {
+          needsToPrintLine1 = 1
+        }
+        if (lines.length === 2) {
+          needsToPrintLine1 = 1
+          needsToPrintLine2 = 1;
+        }
+        if (lines.length === 3) {
+          needsToPrintLine1 = 1
+          needsToPrintLine2 = 1;
+          needsToPrintLine3 = 1;
+        }
+        if (lines.length === 4) {
+          needsToPrintLine1 = 1
+          needsToPrintLine2 = 1;
+          needsToPrintLine3 = 1;
+          needsToPrintLine4 = 1;
+        }
+        if (lines.length === 5 || lines.length === 6) {
+          needsToPrintLine1 = 1
+          needsToPrintLine2 = 1;
+          needsToPrintLine3 = 1;
+          needsToPrintLine4 = 1;
+          needsToPrintLine5 = 1;
+        }
+        // Check the position every 500 milliseconds
+        setTimeout(function () {
+          if (needsToPrintLine1 === 1 && checkPotentiometerValue(1)) {
+            console.log("Printing the Line 1")
+            const line1 = lines[0]
+            var line1Split = line1.split("");
+            line1Split.forEach(function (el, index) {
+              var AsciiBase10 = lines[0].charCodeAt(index);
+              var fileName = getAsciiFileName(AsciiBase10);
+              var gcodeFileName = fileName + ".gcode";
+              PAIGESimpleReadSPIFFFile(gcodeFileName)
+            })
+            needsToPrintLine1 = 0
+            if (line1.length === 15) {
+              PAIGESimpleReadSPIFFFile("A.gcode")
+            }
+          } else if (needsToPrintLine2 === 1 && checkPotentiometerValue(2)) {
+            console.log("Printing the Line 2")
+            const line2 = lines[1]
+            var line2Split = line2.split("");
+            line2Split.forEach(function (el, index) {
+              var AsciiBase10 = lines[0].charCodeAt(index);
+              var fileName = getAsciiFileName(AsciiBase10);
+              var gcodeFileName = fileName + ".gcode";
+              PAIGESimpleReadSPIFFFile(gcodeFileName)
+            })
+            needsToPrintLine2 = 0
+            if (line2.length === 15) {
+              PAIGESimpleReadSPIFFFile("A.gcode")
+            }
+          } else if (needsToPrintLine3 === 1 && checkPotentiometerValue(3)) {
+            console.log("Printing the Line 3")
+            const line3 = lines[2]
+            var line3Split = line3.split("");
+            line3Split.forEach(function (el, index) {
+              var AsciiBase10 = lines[0].charCodeAt(index);
+              var fileName = getAsciiFileName(AsciiBase10);
+              var gcodeFileName = fileName + ".gcode";
+              PAIGESimpleReadSPIFFFile(gcodeFileName)
+            })
+            needsToPrintLine3 = 0
+            if (line3.length === 15) {
+              PAIGESimpleReadSPIFFFile("A.gcode")
+            }
+          } else if (needsToPrintLine4 === 1 && checkPotentiometerValue(4)) {
+            console.log("Printing the Line 4")
+            const line4 = lines[3]
+            var line4Split = line4.split("");
+            line4Split.forEach(function (el, index) {
+              var AsciiBase10 = lines[0].charCodeAt(index);
+              var fileName = getAsciiFileName(AsciiBase10);
+              var gcodeFileName = fileName + ".gcode";
+              PAIGESimpleReadSPIFFFile(gcodeFileName)
+            })
+            needsToPrintLine4 = 0
+            if (line4.length === 15) {
+              PAIGESimpleReadSPIFFFile("A.gcode")
+            }
+          } else if (needsToPrintLine5 === 1 && checkPotentiometerValue(5)) {
+            console.log("Printing the Line 5")
+            const line5 = lines[4]
+            var line5Split = line5.split("");
+            line5Split.forEach(function (el, index) {
+              var AsciiBase10 = lines[0].charCodeAt(index);
+              var fileName = getAsciiFileName(AsciiBase10);
+              var gcodeFileName = fileName + ".gcode";
+              PAIGESimpleReadSPIFFFile(gcodeFileName)
+            })
+            needsToPrintLine5 = 0
+            if (line5.length === 15) {
+              PAIGESimpleReadSPIFFFile("A.gcode")
+            }
+          } else {
+            console.log("Printing has finished")
+          }
+        }, 500);
 
+
+
+        // splitText.forEach(function (el, index) {
+        // });
         initialInputText.value = allText;
         processedText.value = allText;
       }
