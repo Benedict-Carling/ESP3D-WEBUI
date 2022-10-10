@@ -94,30 +94,28 @@ function clearTextInput() {
     console.log("Attempting to home");
     SendDisableCommand();
     setTimeout(function () {
-      setTimeout(function () {
-        initialInputText.value = "";
-        processedText.value = "";
-      }, 2000);
-    }, 2000);
-  }, 6000);
+      initialInputText.value = "";
+      processedText.value = "";
+    }, 1000);
+  }, 1000);
 }
 
 function checkPotentiometerValue(line) {
   console.log({ PAIGE_POTENT_VALUE: PAIGE_POTENT_VALUE });
   if (line === 1) {
-    if ((PAIGE_POTENT_VALUE >= 5) & (PAIGE_POTENT_VALUE <= 11)) return true;
+    if ((PAIGE_POTENT_VALUE >= 4) & (PAIGE_POTENT_VALUE <= 12)) return true;
   }
   if (line === 2) {
-    if ((PAIGE_POTENT_VALUE >= 17) & (PAIGE_POTENT_VALUE <= 23)) return true;
+    if ((PAIGE_POTENT_VALUE >= 16) & (PAIGE_POTENT_VALUE <= 24)) return true;
   }
   if (line === 3) {
-    if ((PAIGE_POTENT_VALUE >= 28) & (PAIGE_POTENT_VALUE <= 35)) return true;
+    if ((PAIGE_POTENT_VALUE >= 27) & (PAIGE_POTENT_VALUE <= 36)) return true;
   }
   if (line === 4) {
-    if ((PAIGE_POTENT_VALUE >= 42) & (PAIGE_POTENT_VALUE <= 47)) return true;
+    if ((PAIGE_POTENT_VALUE >= 41) & (PAIGE_POTENT_VALUE <= 48)) return true;
   }
   if (line === 5) {
-    if ((PAIGE_POTENT_VALUE >= 53) & (PAIGE_POTENT_VALUE <= 59)) return true;
+    if ((PAIGE_POTENT_VALUE >= 52) & (PAIGE_POTENT_VALUE <= 60)) return true;
   }
   return false;
 }

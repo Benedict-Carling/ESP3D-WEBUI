@@ -346,54 +346,483 @@ function readTextFile(file) {
 }
 
 function PAIGESimpleReadSPIFFFile(file) {
-  if (file==="41.gcode") {
-    PAIGE_SendGrblCommand("G91");
-    PAIGE_SendGrblCommand("G0 X2.5 Y3");
-    PAIGE_SendGrblCommand("G0 X3 Y-1.5");
-    PAIGE_SendGrblCommand("G0 X2.5 Y-1.5");
-  }
-  if (file==="42.gcode") {
-    PAIGE_SendGrblCommand("G91");
-    PAIGE_SendGrblCommand("G0 X2.5");
-    PAIGE_SendGrblCommand("G0 Y3");
-    PAIGE_SendGrblCommand("G0 X3 Y-1.5");
-    PAIGE_SendGrblCommand("G0 X2.5 Y-1.5");
-  }
-  if (file==="43.gcode") {
-    PAIGE_SendGrblCommand("G91");
-    PAIGE_SendGrblCommand("G0 X2.5 Y3");
-    PAIGE_SendGrblCommand("G0 X3");
-    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
-  }
-  if (file==="44.gcode") {
-    PAIGE_SendGrblCommand("G91");
-    PAIGE_SendGrblCommand("G0 X2.5 Y3");
-    PAIGE_SendGrblCommand("G0 X3");
-    PAIGE_SendGrblCommand("G0 Y-3");
-    PAIGE_SendGrblCommand("G0 X2.5");
-  }
-  if (file==="45.gcode") {
-    PAIGE_SendGrblCommand("G91");
-    PAIGE_SendGrblCommand("G0 X2.5 Y3");
-    PAIGE_SendGrblCommand("G0 X3 Y-3");
-    PAIGE_SendGrblCommand("G0 X2.5");
-  }
-  if (file==="A.gcode") {
+  if (file==="A.gcode") { // New line
     PAIGE_SendGrblCommand("G91");
     PAIGE_SendGrblCommand("G0 Y-6.5");
     PAIGE_SendGrblCommand("G0 X-120");
     PAIGE_SendGrblCommand("G0 Y-6.5");
   }
-  if (file==="clear.gcode") {
+  if (file==="clear.gcode") { // Clear
     PAIGE_SendGrblCommand("G90");
     PAIGE_SendGrblCommand("G0 Y-150");
     PAIGE_SendGrblCommand("G1 X150 F3000");
     PAIGE_SendGrblCommand("G0 X0");
     PAIGE_SendGrblCommand("G0 Y0");
   }
-  if (file==="initial.gcode") {
+  if (file==="initial.gcode") { // Initial
     PAIGE_SendGrblCommand("G90");
     PAIGE_SendGrblCommand("G0 X24.3 Y-4.5");
+  }
+  if (file==="20.gcode") { // Space
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 Y1.5");
+    PAIGE_SendGrblCommand("G0 X8");
+    PAIGE_SendGrblCommand("G0 Y-1.5");
+  }
+  if (file==="21.gcode") { // !
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5");
+    PAIGE_SendGrblCommand("G0 X3 Y3");
+    PAIGE_SendGrblCommand("G0 X-3 Y-3");
+    PAIGE_SendGrblCommand("G0 Y-3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="22.gcode") { // "
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y1.5");
+    PAIGE_SendGrblCommand("G0 X3 Y-1.5");
+    PAIGE_SendGrblCommand("G0 X2.5");
+  }
+  if (file==="23.gcode") { // #
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 Y6");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+  }
+  if (file==="24.gcode") { // $
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5");
+    PAIGE_SendGrblCommand("G0 Y3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X-3 Y-3");
+    PAIGE_SendGrblCommand("G0 X3 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="25.gcode") { // %
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X-2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="26.gcode") { // &
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X-3 Y-3");
+    PAIGE_SendGrblCommand("G0 Y-3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="27.gcode") { // '
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X3 Y1.5");
+    PAIGE_SendGrblCommand("G0 X2.5 Y1.5");
+  }
+  if (file==="28.gcode") { // (
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 Y-6");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 Y3");
+    PAIGE_SendGrblCommand("G0 X2.5");
+  }
+  if (file==="29.gcode") { // )
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5");
+    PAIGE_SendGrblCommand("G0 Y-3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 Y6");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+  }
+  if (file==="2A.gcode") { // *
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X1.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X1.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="2B.gcode") { // +
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X-2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+  }
+  if (file==="2C.gcode") { // ,
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-1.5");
+    PAIGE_SendGrblCommand("G0 X3 Y-1.5");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="2D.gcode") { // -
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="2E.gcode") { // .
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-1.5");
+    PAIGE_SendGrblCommand("G0 X3 Y-1.5");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X-2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+  }
+  if (file==="2F.gcode") { // /
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X1.5 Y3");
+    PAIGE_SendGrblCommand("G0 X1.5 Y3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+  }
+  if (file==="30.gcode") { // 0
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 Y3");
+    PAIGE_SendGrblCommand("G0 X2.5");
+  }
+  if (file==="31.gcode") { // 1
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5");
+    PAIGE_SendGrblCommand("G0 X3 Y1.5");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-1.5");
+  }
+  if (file==="32.gcode") { // 2
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5");
+    PAIGE_SendGrblCommand("G0 Y-3");
+    PAIGE_SendGrblCommand("G0 X3 Y1.5");
+    PAIGE_SendGrblCommand("G0 X2.5 Y1.5");
+  }
+  if (file==="33.gcode") { // 3
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X8");
+  }
+  if (file==="34.gcode") { // 4
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X5.5");
+    PAIGE_SendGrblCommand("G0 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="35.gcode") { // 5
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5");
+    PAIGE_SendGrblCommand("G0 X3 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="36.gcode") { // 6
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 Y3");
+    PAIGE_SendGrblCommand("G0 X5.5");
+  }
+  if (file==="37.gcode") { // 7
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5");
+    PAIGE_SendGrblCommand("G0 Y-3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 Y3");
+    PAIGE_SendGrblCommand("G0 X2.5");
+  }
+  if (file==="38.gcode") { // 8
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5");
+    PAIGE_SendGrblCommand("G0 Y-3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="39.gcode") { // 9
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X3 Y3");
+    PAIGE_SendGrblCommand("G0 X2.5");
+  }
+  if (file==="3A.gcode") { // :
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X3 Y-3");
+    PAIGE_SendGrblCommand("G0 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="3B.gcode") { // ;
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y1.5");
+    PAIGE_SendGrblCommand("G0 X3 Y-1.5");
+    PAIGE_SendGrblCommand("G0 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="3C.gcode") { // <
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 Y-3");
+    PAIGE_SendGrblCommand("G0 X3 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="3D.gcode") { // =
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 Y6");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 Y-6");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="3E.gcode") { // >
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X3 Y3");
+    PAIGE_SendGrblCommand("G0 Y3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+  }
+  if (file==="3F.gcode") { // ?
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 Y-6");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="40.gcode") { // @
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y1.5");
+    PAIGE_SendGrblCommand("G0 X3 Y1.5");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+  }
+  if (file==="41.gcode") { // A
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X3 Y-1.5");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-1.5");
+  }
+  if (file==="42.gcode") { // B
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5");
+    PAIGE_SendGrblCommand("G0 Y3");
+    PAIGE_SendGrblCommand("G0 X3 Y-1.5");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-1.5");
+  }
+  if (file==="43.gcode") { // C
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+  }
+  if (file==="44.gcode") { // D
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5");
+  }
+  if (file==="45.gcode") { // E
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X3 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5");
+  }
+  if (file==="46.gcode") { // F
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5");
+    PAIGE_SendGrblCommand("G0 Y3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+  }
+  if (file==="47.gcode") { // G
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5");
+    PAIGE_SendGrblCommand("G0 Y3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5");
+  }
+  if (file==="48.gcode") { // H
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5");
+    PAIGE_SendGrblCommand("G0 Y3");
+    PAIGE_SendGrblCommand("G0 X3 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5");
+  }
+  if (file==="49.gcode") { // I
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5");
+    PAIGE_SendGrblCommand("G0 X3 Y3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+  }
+  if (file==="4A.gcode") { // J
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X5.5");
+    PAIGE_SendGrblCommand("G0 Y3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+  }
+  if (file==="4B.gcode") { // K
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X-2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X3 Y1.5");
+    PAIGE_SendGrblCommand("G0 X2.5 Y1.5");
+  }
+  if (file==="4C.gcode") { // L
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 Y-6");
+    PAIGE_SendGrblCommand("G0 X3 Y1.5");
+    PAIGE_SendGrblCommand("G0 X2.5 Y1.5");
+  }
+  if (file==="4D.gcode") { // M
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X-2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+  }
+  if (file==="4E.gcode") { // N
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 Y-3");
+    PAIGE_SendGrblCommand("G0 X-3 Y-3");
+    PAIGE_SendGrblCommand("G0 X3 Y3");
+    PAIGE_SendGrblCommand("G0 X2.5");
+  }
+  if (file==="4F.gcode") { // O
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X3 Y-3");
+    PAIGE_SendGrblCommand("G0 X-3 Y-3");
+    PAIGE_SendGrblCommand("G0 X3 Y3");
+    PAIGE_SendGrblCommand("G0 X2.5");
+  }
+  if (file==="50.gcode") { // P
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 Y6");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+  }
+  if (file==="51.gcode") { // Q
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 Y6");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5");
+  }
+  if (file==="52.gcode") { // R
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 Y6");
+    PAIGE_SendGrblCommand("G0 X3 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5");
+  }
+  if (file==="53.gcode") { // S
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 Y3");
+    PAIGE_SendGrblCommand("G0 X3 Y3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+  }
+  if (file==="54.gcode") { // T
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 Y3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 Y3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+  }
+  if (file==="55.gcode") { // U
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X-2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="56.gcode") { // V
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 Y-6");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="57.gcode") { // W
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5");
+    PAIGE_SendGrblCommand("G0 X3 Y-3");
+    PAIGE_SendGrblCommand("G0 Y6");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+  }
+  if (file==="58.gcode") { // X
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X-3");
+    PAIGE_SendGrblCommand("G0 X-2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="59.gcode") { // Y
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 Y-6");
+    PAIGE_SendGrblCommand("G0 X-3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="5A.gcode") { // Z
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 X3 Y-3");
+    PAIGE_SendGrblCommand("G0 Y-3");
+    PAIGE_SendGrblCommand("G0 X-3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="5B.gcode") { // [
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5");
+    PAIGE_SendGrblCommand("G0 X3 Y3");
+    PAIGE_SendGrblCommand("G0 X-3 Y-3");
+    PAIGE_SendGrblCommand("G0 X3 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="5C.gcode") { // \
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+    PAIGE_SendGrblCommand("G0 Y-3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 Y-3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="5D.gcode") { // ]
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5");
+    PAIGE_SendGrblCommand("G0 Y3");
+    PAIGE_SendGrblCommand("G0 X3");
+    PAIGE_SendGrblCommand("G0 Y-6");
+    PAIGE_SendGrblCommand("G0 X2.5 Y3");
+  }
+  if (file==="5E.gcode") { // ^
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-1.5");
+    PAIGE_SendGrblCommand("G0 X3 Y1.5");
+    PAIGE_SendGrblCommand("G0 Y3");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
+  }
+  if (file==="5F.gcode") { // _
+    PAIGE_SendGrblCommand("G91");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-1.5");
+    PAIGE_SendGrblCommand("G0 X3 Y-1.5");
+    PAIGE_SendGrblCommand("G0 Y6");
+    PAIGE_SendGrblCommand("G0 X2.5 Y-3");
   }
 }
 
