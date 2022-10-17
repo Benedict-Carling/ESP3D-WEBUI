@@ -361,7 +361,7 @@ function PAIGESimpleReadSPIFFFile(file) {
   }
   if (file==="initial.gcode") { // Initial
     PAIGE_SendGrblCommand("G90");
-    PAIGE_SendGrblCommand("G0 X24.3 Y-4.5");
+    PAIGE_SendGrblCommand("G0 X23.8 Y-4.5");
   }
   if (file==="20.gcode") { // Space
     PAIGE_SendGrblCommand("G91");
