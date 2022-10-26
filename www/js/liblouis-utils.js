@@ -107,7 +107,7 @@ function clearTextInput() {
 function liblouisTranslation() {
   try {
     var unicodeStr = initialInputText.value;
-    for (let i = 0; i < unicodeChars.length; i++) {
+    for (var i = 0; i < unicodeChars.length; i++) {
       unicodeStr = unicodeStr.replaceAll(asciiChars[i], unicodeChars[i]);
     }
     console.log("Braille ASCII as Unicode", unicodeStr);
