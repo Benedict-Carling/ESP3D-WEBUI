@@ -1,13 +1,16 @@
 var initialInputText = document.querySelector("#initialInputText");
 var processedText = document.querySelector("#processedText");
+var translatedText = document.querySelector("#translated");
 
-// liblouis.enableOnDemandTableLoading();
+var unicode_file_name = 'unicode.dis';
+var en_gb_file_name = 'en-gb-g1.utb';
 
 var PAIGE_CHARACTER_WAIT_TIME_MS = 100;
 
 function logInputText(inputCharacter) {
   var lines = inputCharacter.split("\n");
-  var validBarPosition = checkPotentiometerValue(lines.length);
+  console.log(lines);
+  var validBarPosition = checkPotentiometerValue(lines.length) || IS_UI_TEST;
   var lastLineIsEmpty = lines.at(-1).length === 0;
   var inputHasMoreThanOneLine = lines.length > 1;
   var secondLastLineHas15 = true;
@@ -73,6 +76,7 @@ function logInputText(inputCharacter) {
       PAIGESimpleReadSPIFFFile(gcodeFileName);
     }
   }
+  liblouisTranslation();
 }
 
 function getAsciiFileName(AsciiBase10) {
@@ -100,6 +104,16 @@ function clearTextInput() {
   }, 1000);
 }
 
+function liblouisTranslation() {
+  try {
+    const translation = liblouis.backTranslateString("unicode.dis,en-gb-g1.utb", initialInputText.value);
+    console.log("Translation:", translation);
+    translatedText.value = translation;
+  } catch(e) {
+    console.error("Error with liblouis translation", e);
+  }
+}
+
 function checkPotentiometerValue(line) {
   console.log({ PAIGE_POTENT_VALUE: PAIGE_POTENT_VALUE });
   if (line === 1) {
@@ -124,3 +138,5 @@ function no_backspaces(event) {
   backspace = 8;
   if (event.keyCode == backspace) event.preventDefault();
 }
+
+

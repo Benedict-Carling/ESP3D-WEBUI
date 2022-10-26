@@ -121,6 +121,9 @@ function SendGetHttp(url, result_fn, error_fn, id, max_id) {
 }
 
 function ProcessGetHttp(url, resultfn, errorfn) {
+    if (IS_UI_TEST) {
+        return;
+    }
     if (http_communication_locked) {
         errorfn(503, translate_text_item("Communication locked!"));
         console.log("locked");

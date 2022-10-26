@@ -1,3 +1,20 @@
+# ESP3D-WEBUI Paige Version
+
+### Building for deployment
+
+To build run:
+- `npm install` (this will install all dependencies)
+- `npm run package` (this will use [Gulp](https://gulpjs.com/) alongside multiple Gulp plugins to build everything into one `index.html.gz` file - you can also see the original uncompressed `index.html` at `dist/index.html`)
+
+### Dependency-free manual testing of Paige UI
+
+- Ensure you have installed `node_modules` by running `npm install`
+- Set `IS_UI_TEST=true` in `app.js`
+- Run `npm run test`
+- Open `dist/index.html` in your browser
+- Click on the Paige tab
+- Copy and paste Unicode Braille into the Braille tab
+
 # ESP3D-WEBUI 
 [Latest stable release ![Release Version](https://img.shields.io/github/v/release/luc-github/ESP3D-WEBUI?color=green&include_prereleases&style=plastic) ![Release Date](https://img.shields.io/github/release-date/luc-github/ESP3D-WEBUI.svg?style=plastic)](https://github.com/luc-github/ESP3D-WEBUI/releases/latest/) [![Travis (.org) branch](https://img.shields.io/travis/luc-github/ESP3D-WEBUI/2.1?style=plastic)](https://travis-ci.org/github/luc-github/ESP3D-WEBUI)   
 

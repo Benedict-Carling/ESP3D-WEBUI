@@ -34,6 +34,7 @@ var enable_ping = true;
 var esp_error_message = "";
 var esp_error_code = 0;
 var PAIGE_POTENT_VALUE = 0;
+var IS_UI_TEST = true;
 
 var paigeClearButton = document.querySelector("#PAIGEClearButton");
 
@@ -297,9 +298,7 @@ function Handle_DHT(data) {
     console.log("DHT data invalid: " + data);
     return;
   }
-  var temp = convertDHT2Fahrenheit
-    ? parseFloat(tdata[0]) * 1.8 + 32
-    : parseFloat(tdata[0]);
+  var temp = convertDHT2Fahrenheit ? (parseFloat(tdata[0]) * 1.8 + 32) : parseFloat(tdata[0]);
   document.getElementById("DHT_humidity").innerHTML =
     parseFloat(tdata[1]).toFixed(2).toString() + "%";
   var temps = temp.toFixed(2).toString() + "&deg;";
@@ -810,3 +809,4 @@ function process_socket_response(msg) {
     }
   }
 }
+

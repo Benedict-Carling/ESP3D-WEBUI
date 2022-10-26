@@ -13,6 +13,9 @@ function connectdlg(getFw) {
 }
 
 function getFWdata(response) {
+    if (IS_UI_TEST) {
+        return true;
+    }
     var tlist = response.split("#");
     //FW version:0.9.200 # FW target:smoothieware # FW HW:Direct SD # primary sd:/ext/ # secondary sd:/sd/ # authentication: yes
     if (tlist.length < 3) {

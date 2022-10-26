@@ -32,5 +32,9 @@
     "global": "latest",
     "liblouis-build": "0.0.0-test.4",
     "liblouis-js": "^0.2.0"
+  },
+  "scripts": {
+    "package": "gulp package",
+    "test": "gulp package2test"
   }
 }
