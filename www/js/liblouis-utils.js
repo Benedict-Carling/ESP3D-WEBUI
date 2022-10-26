@@ -4,6 +4,10 @@ var translatedText = document.querySelector("#translated");
 
 var PAIGE_CHARACTER_WAIT_TIME_MS = 100;
 
+var unicodeChars = ['⠀', '⠮', '⠐', '⠼', '⠫', '⠩', '⠯', '⠄', '⠷', '⠾', '⠡', '⠬', '⠠', '⠤', '⠨', '⠌', '⠴', '⠂', '⠆', '⠒', '⠲', '⠢', '⠖', '⠶', '⠦', '⠔', '⠱', '⠰', '⠣', '⠿', '⠜', '⠹', '⠈', '⠁', '⠃', '⠉', '⠙', '⠑', '⠋', '⠛', '⠓', '⠊', '⠚', '⠅', '⠇', '⠍', '⠝', '⠕', '⠏', '⠟', '⠗', '⠎', '⠞', '⠥', '⠧', '⠺', '⠭', '⠽', '⠵', '⠪', '⠳', '⠻', '⠘', '⠸'];
+var asciiChars = [' ', '!', '”', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', ".", "/", "0", '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '[', '\\', ']', '^', '_'];
+
+
 function logInputText(inputCharacter) {
   var lines = inputCharacter.split("\n");
   var validBarPosition = checkPotentiometerValue(lines.length) || IS_UI_TEST;
@@ -102,7 +106,12 @@ function clearTextInput() {
 
 function liblouisTranslation() {
   try {
-    var translation = liblouis.backTranslateString("unicode.dis,en-gb-g1.utb", initialInputText.value);
+    var unicodeStr = initialInputText.value;
+    for (let i = 0; i < unicodeChars.length; i++) {
+      unicodeStr = unicodeStr.replaceAll(asciiChars[i], unicodeChars[i]);
+    }
+    console.log("Braille ASCII as Unicode", unicodeStr);
+    var translation = liblouis.backTranslateString("unicode.dis,en-gb-g1.utb", unicodeStr);
     console.log("Translation:", translation);
     translatedText.value = translation;
   } catch(e) {
