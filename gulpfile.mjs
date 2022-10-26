@@ -283,7 +283,7 @@ function minifyApp() {
     // TODO: Improve build to minify all non-third-party js, and load liblouis files from node_modules and not www/js
     gulp
       .src(["dist/js/app.js"])
-      // .pipe(uglify({ mangle: true })) (commented out for now because of OOM errors caused by too much js code)
+      // .pipe(uglify({ mangle: true })) (commented out for now because of OOM errors caused by too much js code - this is likely the tables embedded in liblouis build)
       .pipe(gulp.dest("./dist/js/")),
 
     gulp
