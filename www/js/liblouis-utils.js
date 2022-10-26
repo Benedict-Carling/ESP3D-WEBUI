@@ -102,7 +102,7 @@ function clearTextInput() {
 
 function liblouisTranslation() {
   try {
-    const translation = liblouis.backTranslateString("unicode.dis,en-gb-g1.utb", initialInputText.value);
+    var translation = liblouis.backTranslateString("unicode.dis,en-gb-g1.utb", initialInputText.value);
     console.log("Translation:", translation);
     translatedText.value = translation;
   } catch(e) {
