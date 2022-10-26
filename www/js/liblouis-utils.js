@@ -2,14 +2,10 @@ var initialInputText = document.querySelector("#initialInputText");
 var processedText = document.querySelector("#processedText");
 var translatedText = document.querySelector("#translated");
 
-var unicode_file_name = 'unicode.dis';
-var en_gb_file_name = 'en-gb-g1.utb';
-
 var PAIGE_CHARACTER_WAIT_TIME_MS = 100;
 
 function logInputText(inputCharacter) {
   var lines = inputCharacter.split("\n");
-  console.log(lines);
   var validBarPosition = checkPotentiometerValue(lines.length) || IS_UI_TEST;
   var lastLineIsEmpty = lines.at(-1).length === 0;
   var inputHasMoreThanOneLine = lines.length > 1;
@@ -138,5 +134,3 @@ function no_backspaces(event) {
   backspace = 8;
   if (event.keyCode == backspace) event.preventDefault();
 }
-
-

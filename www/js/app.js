@@ -34,7 +34,7 @@ var enable_ping = true;
 var esp_error_message = "";
 var esp_error_code = 0;
 var PAIGE_POTENT_VALUE = 0;
-var IS_UI_TEST = true;
+var IS_UI_TEST = false;  // Set to true to test UI independently of other components
 
 var paigeClearButton = document.querySelector("#PAIGEClearButton");
 
