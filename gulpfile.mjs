@@ -410,6 +410,7 @@ var package2testSeries = gulp.series(
   includehtml,
   includehtml,
   replaceSVG,
+  englishOnly,
   smoosh
 );
 
