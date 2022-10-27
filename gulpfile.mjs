@@ -278,6 +278,25 @@ function clearlang() {
     .pipe(gulp.dest("./dist/js/"));
 }
 
+function englishOnly() {
+  return gulp
+    .src("dist/js/app.js")
+    .pipe(removeCode({ de_lang_disabled: true }))
+    .pipe(removeCode({ en_lang_disabled: false }))
+    .pipe(removeCode({ es_lang_disabled: true }))
+    .pipe(removeCode({ fr_lang_disabled: true }))
+    .pipe(removeCode({ it_lang_disabled: true }))
+    .pipe(removeCode({ ja_lang_disabled: true }))
+    .pipe(removeCode({ hu_lang_disabled: true }))
+    .pipe(removeCode({ pl_lang_disabled: true }))
+    .pipe(removeCode({ ptbr_lang_disabled: true }))
+    .pipe(removeCode({ ru_lang_disabled: true }))
+    .pipe(removeCode({ tr_lang_disabled: true }))
+    .pipe(removeCode({ uk_lang_disabled: true }))
+    .pipe(removeCode({ zh_cn_lang_disabled: true }))
+    .pipe(gulp.dest("./dist/js/"));
+}
+
 function minifyApp() {
   return merge(
 
@@ -365,7 +384,8 @@ var packageSeries = gulp.series(
   includehtml,
   includehtml,
   replaceSVG,
-  clearlang,
+  englishOnly,
+  // clearlang,
   minifyApp,
   smoosh,
   compress
