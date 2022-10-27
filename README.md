@@ -13,7 +13,7 @@ To build run:
 - Run `npm run test`
 - Open `dist/index.html` in your browser
 - Click on the Paige tab
-- Copy and paste Unicode Braille into the Braille tab
+- Copy and paste Ascii Braille into the Braille tab
 
 # ESP3D-WEBUI 
 [Latest stable release ![Release Version](https://img.shields.io/github/v/release/luc-github/ESP3D-WEBUI?color=green&include_prereleases&style=plastic) ![Release Date](https://img.shields.io/github/release-date/luc-github/ESP3D-WEBUI.svg?style=plastic)](https://github.com/luc-github/ESP3D-WEBUI/releases/latest/) [![Travis (.org) branch](https://img.shields.io/travis/luc-github/ESP3D-WEBUI/2.1?style=plastic)](https://travis-ci.org/github/luc-github/ESP3D-WEBUI)   
